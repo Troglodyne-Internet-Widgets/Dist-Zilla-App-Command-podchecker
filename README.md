@@ -77,6 +77,10 @@ Current Maintainers:
 
 - George S. Baugh <george@troglodyne.net>
 
+# CONTRIBUTOR
+
+troglodyne-robot <trogbot@troglodyne.net>
+
 # COPYRIGHT AND LICENSE
 
 This software is copyright (c) 2026 by Troglodyne LLC.
