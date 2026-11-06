@@ -71,6 +71,15 @@ Please see those modules/websites for more information related to this module.
 - [Pod::Checker](https://metacpan.org/pod/Pod%3A%3AChecker)
 - [Pod::Weaver](https://metacpan.org/pod/Pod%3A%3AWeaver)
 
+# BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+[https://github.com/Troglodyne-Internet-Widgets/Dist-Zilla-App-Command-podchecker/issues](https://github.com/Troglodyne-Internet-Widgets/Dist-Zilla-App-Command-podchecker/issues)
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
 # AUTHORS
 
 Current Maintainers:
