@@ -1,0 +1,14 @@
+flavor: troglodyne-compat
+source:
+  git: https://github.com/Troglodyne-Internet-Widgets/perl-slop-plugin.git
+  path: skills/packaging-perl
+variables:
+  DIST: Dist-Zilla-App-Command-podchecker
+  AUTHOR_NAME: George S. Baugh
+  AUTHOR_EMAIL: george@troglodyne.net
+  COPYRIGHT_HOLDER: Troglodyne LLC
+  YEAR: '2026'
+  GITHUB_USER: Troglodyne-Internet-Widgets
+  CPAN_ID: TEODESIAN
+  DATE: '2026-11-06'
+  PERL_FLOOR: '5.022'
