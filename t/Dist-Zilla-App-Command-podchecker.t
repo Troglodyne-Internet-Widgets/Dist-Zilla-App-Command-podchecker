@@ -1,11 +1,11 @@
-#!/usr/bin/env perl
+#!perl
 use 5.022;
 use strict;
 use warnings FATAL => 'all';
 use re '/aasx';
 
-use Test2::V1 -i;                 ## no critic (ProhibitUnusedImports) the T2 handle, which the policy does not see used
-use Test2::Plugin::NoWarnings;    ## no critic (ProhibitUnusedImports) a plugin, loaded for its effect
+use Test2::V1 -i;    ## no critic (ProhibitUnusedImports) the T2 handle, which the policy does not see used
+use Test2::Plugin::NoWarnings;
 use File::Temp   ();
 use Path::Tiny   ();
 use Pod::Checker ();
