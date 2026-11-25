@@ -47,15 +47,50 @@ woven POD of one module.
 
 =cut
 
+=method abstract
+
+The line that C<dzil help> shows for the command.
+
+Returns Str, the abstract.
+
+    my $line = Dist::Zilla::App::Command::podchecker->abstract;
+
+=cut
+
 sub abstract { return 'check the POD of the distribution as the build weaves it' }
+
+=method usage_desc
+
+The usage line of the command, in the format of L<Getopt::Long::Descriptive>.
+
+Returns Str, the usage line, with C<%c> for the name of the program and C<%o>
+for the options.
+
+    my $usage = Dist::Zilla::App::Command::podchecker->usage_desc;
+
+=cut
 
 sub usage_desc { return '%c podchecker %o [ <file> ... ]' }
 
-=method execute
+=method execute($opt, $args)
 
-C<($opt, \@args)>.  Runs the plugins up to the files, and checks the POD of
-each file that L</DESCRIPTION> says.  Dies with the number of files that have
-an error.
+Runs the plugins up to the files, and checks the POD of each file that
+L</DESCRIPTION> says.
+
+=over 4
+
+=item opt - Object - the options, which the command does not read
+
+=item args - ArrayRef[Str] - the names of the files to check, or none for the default files
+
+=back
+
+Returns nothing.
+
+Dies with the number of files that have an error, when one has, and as
+C<files_to_check> dies.
+
+    $command->execute( $opt, ['lib/Foo/Bar.pm'] );
 
 =cut
 
@@ -86,14 +121,12 @@ sub execute {
     return;
 }
 
-=method files_to_check
-
-C<(\@names)>.  The files of the distribution named in C<@names>, or, with
-none, those that C<:InstallModules> and C<:PerlExecFiles> find.  Dies with each
-name that is not a file of the distribution.
-
-=cut
-
+# The files of the distribution named in C<names>, or, with none, those that
+# C<:InstallModules> and C<:PerlExecFiles> find, each once.
+# @param   names  ArrayRef[Str]  the names of files of the distribution, such as F<lib/Foo/Bar.pm>
+# @returns the files, each a Dist::Zilla::Role::File, as a list, in the order of the names
+# @throws  with each name that is not a file of the distribution
+# @example my @files = $command->files_to_check( ['lib/Foo/Bar.pm'] );
 sub files_to_check {
     my ( $self, $names ) = @_;
     my $zilla = $self->zilla;
@@ -115,16 +148,15 @@ sub files_to_check {
     return @by_name{@$names};
 }
 
-=method check_file
-
-C<($file)>, a file of Dist::Zilla.  Runs Pod::Checker on its content, prints
-what it found on the standard output, and returns false when it found an error.
-That includes a file whose only POD commands are unknown ones, such as
-C<=method>, which Pod::Checker reports as an error and then counts as a file
-with no POD.
-
-=cut
-
+# Runs Pod::Checker on the content of a file, and prints what it found on the
+# standard output.  An error includes the unknown POD commands of a file whose
+# only commands are unknown ones, such as C<=method>, which Pod::Checker
+# reports as an error and then counts as a file with no POD.  A file with no
+# POD has no error.
+# @param   file  Object  the file to check, which does Dist::Zilla::Role::File
+# @returns Bool  false when the file has an error, true otherwise
+# @throws  when it cannot print to the standard output
+# @example my $ok = $command->check_file($file);
 sub check_file {
     my ( $self, $file ) = @_;
     my $checker = Dist::Zilla::App::Command::podchecker::Checker->new( -warnings => 1 );
