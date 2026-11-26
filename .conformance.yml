@@ -12,3 +12,11 @@ variables:
   CPAN_ID: TEODESIAN
   DATE: '2026-11-06'
   PERL_FLOOR: '5.022'
+checks:
+  DistIni:
+    settings:
+      license: Perl_5
+    overrides:
+      # A helper of the command, in its file, which nobody loads by that name.
+      MetaNoIndex:
+        package: Dist::Zilla::App::Command::podchecker::Checker
